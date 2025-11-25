@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Bone Density Monitor</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<nav class="navbar">
+    <div class="nav-container">
+        <a href="/" class="nav-logo">
+            <span class="logo-icon">🦴</span>
+            <span class="logo-text">BoneDensity</span>
+        </a>
+        <ul class="nav-menu">
+            <li><a href="/" class="nav-link">Home</a></li>
+            <li><a href="/dashboard" class="nav-link active">Dashboard</a></li>
+            <li><a href="/about" class="nav-link">About</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <h1>Bone Health Dashboard</h1>
+        <p class="user-id">User: <span th:text="${userId}">user001</span></p>
+    </div>
+
+    <div class="dashboard-grid">
+        <!-- Current Reading Card -->
+        <div class="dashboard-card current-reading">
+            <h2>Current Reading</h2>
+            <div class="reading-display">
+                <div class="reading-value">
+                    <span class="value-number" th:text="${#numbers.formatDecimal(latestReading.density, 1, 2)}">1.15</span>
+                    <span class="value-unit">g/cm²</span>
+                </div>
+                <div class="status-indicator" th:classappend="${latestReading.healthStatus.toLowerCase()}">
+                    <span class="status-dot"></span>
+                    <span class="status-text" th:text="${latestReading.healthStatus}">Healthy</span>
+                </div>
+            </div>
+            <p class="reading-time">
+                Last updated: <span th:text="${#temporals.format(latestReading.timestamp, 'MMM dd, yyyy HH:mm')}">Nov 24, 2025 14:30</span>
+            </p>
+        </div>
+
+        <!-- Acoustic Impedance Card -->
+        <div class="dashboard-card">
+            <h2>Acoustic Impedance</h2>
+            <div class="metric-display">
+                <span class="metric-value" th:text="${#numbers.formatDecimal(latestReading.acousticImpedance, 1, 1)}">3.2</span>
+                <span class="metric-unit">MRayl</span>
+            </div>
+            <p class="metric-description">Measures bone material properties</p>
+        </div>
+
+        <!-- Health Status Card -->
+        <div class="dashboard-card health-status">
+            <h2>Health Status Guide</h2>
+            <div class="status-guide">
+                <div class="status-item">
+                    <span class="guide-dot healthy"></span>
+                    <div>
+                        <strong>Healthy</strong>
+                        <p>BMD ≥ 1.0 g/cm²</p>
+                    </div>
+                </div>
+                <div class="status-item">
+                    <span class="guide-dot warning"></span>
+                    <div>
+                        <strong>Warning</strong>
+                        <p>BMD 0.8 - 1.0 g/cm²</p>
+                    </div>
+                </div>
+                <div class="status-item">
+                    <span class="guide-dot concerning"></span>
+                    <div>
+                        <strong>Concerning</strong>
+                        <p>BMD < 0.8 g/cm²</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Readings Table -->
+    <div class="dashboard-card recent-readings">
+        <h2>Recent Readings</h2>
+        <div class="table-container">
+            <table class="readings-table">
+                <thead>
+                <tr>
+                    <th>Date & Time</th>
+                    <th>Bone Density (g/cm²)</th>
+                    <th>Acoustic Impedance (MRayl)</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="reading : ${readings}">
+                    <td th:text="${#temporals.format(reading.timestamp, 'MMM dd, yyyy HH:mm')}">Nov 24, 2025 14:30</td>
+                    <td th:text="${#numbers.formatDecimal(reading.density, 1, 2)}">1.15</td>
+                    <td th:text="${#numbers.formatDecimal(reading.acousticImpedance, 1, 1)}">3.2</td>
+                    <td>
+                                <span class="table-status" th:classappend="${reading.healthStatus.toLowerCase()}" th:text="${reading.healthStatus}">
+                                    Healthy
+                                </span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Chart -->
+    <div class="dashboard-card chart-card">
+        <h2>Bone Density Trend</h2>
+        <canvas id="densityChart"></canvas>
+    </div>
+
+    <!-- Device Info -->
+    <div class="dashboard-card device-info">
+        <h2>Device Information</h2>
+        <div class="info-grid">
+            <div class="info-item">
+                <span class="info-label">Device:</span>
+                <span class="info-value">ESP32 S3 DevKitC</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Sensor:</span>
+                <span class="info-value">Piezoelectric Film</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Vibration Motor:</span>
+                <span class="info-value">DC 3V 12000rpm</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Connection:</span>
+                <span class="info-value">Bluetooth/WiFi</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-bottom">
+            <p>&copy; 2025 Bone Density Monitor. Built for MedTech Hack.</p>
+        </div>
+    </div>
+</footer>
+
+<script th:src="@{/js/dashboard.js}"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    const readings = /*[[${readings}]]*/ [];
+    initDashboard(readings);
+    /*]]>*/
+</script>
+</body>
+</html>
