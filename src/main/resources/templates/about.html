@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | Bone Density Monitor</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<nav class="navbar">
+    <div class="nav-container">
+        <a href="/" class="nav-logo">
+            <span class="logo-icon">🦴</span>
+            <span class="logo-text">BoneDensity</span>
+        </a>
+        <ul class="nav-menu">
+            <li><a href="/" class="nav-link">Home</a></li>
+            <li><a href="/dashboard" class="nav-link">Dashboard</a></li>
+            <li><a href="/about" class="nav-link active">About</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="about-hero">
+    <div class="container">
+        <h1>About Our Technology</h1>
+        <p class="lead">Revolutionizing bone health monitoring through acoustic technology</p>
+    </div>
+</div>
+
+<section class="about-section">
+    <div class="container">
+        <div class="content-block">
+            <h2>The Problem</h2>
+            <p>Traditional bone densitometers are bulky and impractical for space missions where every kilogram matters. Additionally, aging populations need accessible, affordable bone health monitoring to prevent osteoporosis-related fractures.</p>
+        </div>
+
+        <div class="content-block">
+            <h2>Our Solution</h2>
+            <p>We've developed a lightweight, wearable device that uses acoustic technology to assess bone health. Our system employs:</p>
+            <ul class="feature-list">
+                <li><strong>Vibration Motors:</strong> Generate controlled vibrations in bone tissue</li>
+                <li><strong>Piezoelectric Film Sensors:</strong> Detect acoustic responses with high sensitivity</li>
+                <li><strong>ESP32 S3 DevKitC:</strong> Process data and provide wireless connectivity</li>
+                <li><strong>LCD Display:</strong> Show real-time feedback to users</li>
+            </ul>
+        </div>
+
+        <div class="content-block">
+            <h2>How It Works</h2>
+            <div class="process-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Vibration Generation</h3>
+                        <p>The device emits low-frequency acoustic waves (0.5-2 MHz) through the skin to the bone.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Signal Detection</h3>
+                        <p>Piezoelectric sensors capture the acoustic response and measure damping factors.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Data Analysis</h3>
+                        <p>Arduino computes acoustic impedance and compares it to healthy baseline ranges.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Health Assessment</h3>
+                        <p>Results are displayed instantly, alerting users to any concerning changes.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-block">
+            <h2>Scientific Foundation</h2>
+            <p>Our approach is based on research showing that bone strength correlates with mineral content, modulus of elasticity, and natural frequency of bone vibration. Studies have demonstrated that acoustic sweep monitoring can be equal to or better than mineral density measurements as a predictor of bone strength.</p>
+            <p>The method measures material damping using excitation in the acoustic range, providing insights into bone quality beyond simple density measurements.</p>
+        </div>
+
+        <div class="content-block">
+            <h2>Applications</h2>
+            <div class="app-grid">
+                <div class="app-card">
+                    <h3>🚀 Space Exploration</h3>
+                    <p>Monitor bone adaptation in astronauts during long-term missions, enabling safer deep space travel. Critical for Mars missions and extended ISS stays.</p>
+                </div>
+                <div class="app-card">
+                    <h3>🏥 Osteoporosis Diagnosis</h3>
+                    <p>Early detection and continuous monitoring of osteoporosis, making bone health assessment accessible in clinical and home settings.</p>
+                </div>
+                <div class="app-card">
+                    <h3>👵 Elderly Care</h3>
+                    <p>Regular monitoring for aging populations to prevent fractures and maintain independence and quality of life.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-block">
+            <h2>Future Improvements</h2>
+            <ul class="feature-list">
+                <li>Integration into spacesuits for continuous monitoring during spacewalks</li>
+                <li>Mobile app with personalized health profiles and trend tracking</li>
+                <li>Machine learning algorithms for predictive health analytics</li>
+                <li>Multi-site measurements for comprehensive skeletal assessment</li>
+            </ul>
+        </div>
+
+        <div class="content-block team-section">
+            <h2>The Team</h2>
+            <p><strong>Team:</strong> ChocoChip Circuits</p>
+            <p><strong>Institution:</strong> Georgia Tech</p>
+            <p><strong>Event:</strong> MedTech Hack Hackathon</p>
+            <p><strong>Thread:</strong> Health Monitoring</p>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-bottom">
+            <p>&copy; 2025 Bone Density Monitor. Built for MedTech Hack.</p>
+        </div>
+    </div>
+</footer>
+</body>
+</html>
