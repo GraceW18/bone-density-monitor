@@ -1,18 +1,85 @@
-// Dashboard JavaScript Functions
+// Enhanced Dashboard JavaScript Functions
 
 function initDashboard(readings) {
-    // Initialize the chart with the readings data
-    createDensityChart(readings);
+    console.log('Initializing dashboard with readings:', readings);
 
-    // Set up any real-time updates if needed
-    // setupRealtimeUpdates();
+    // Initialize counter animations
+    initCounterAnimations();
+
+    // Initialize progress ring
+    initProgressRing();
+
+    // Initialize the chart with the readings data
+    if (readings && readings.length > 0) {
+        createDensityChart(readings);
+    } else {
+        console.error('No readings data available for chart');
+    }
 }
 
+// Counter Animation for Numbers
+function initCounterAnimations() {
+    const counters = document.querySelectorAll('.counter-animation');
+
+    counters.forEach(counter => {
+        const target = parseFloat(counter.getAttribute('data-target'));
+        const duration = 2000; // 2 seconds
+        const increment = target / (duration / 16); // 60 FPS
+        let current = 0;
+
+        const updateCounter = () => {
+            current += increment;
+            if (current < target) {
+                counter.textContent = current.toFixed(2);
+                requestAnimationFrame(updateCounter);
+            } else {
+                counter.textContent = target.toFixed(2);
+            }
+        };
+
+        // Start animation when element is in viewport
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    updateCounter();
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        observer.observe(counter);
+    });
+}
+
+// Progress Ring Animation
+function initProgressRing() {
+    const progressRing = document.querySelector('.progress-ring-fill');
+    if (!progressRing) return;
+
+    const percentage = parseFloat(progressRing.getAttribute('data-percentage'));
+    const radius = 60; // Updated radius
+    const circumference = 2 * Math.PI * radius;
+    const offset = circumference - (percentage / 100) * circumference;
+
+    // Set CSS variable for animation
+    progressRing.style.setProperty('--progress', percentage);
+
+    // Animate on load
+    setTimeout(() => {
+        progressRing.style.strokeDashoffset = offset;
+    }, 500);
+}
+
+// Create Density Chart with Enhanced Animations
 function createDensityChart(readings) {
     const ctx = document.getElementById('densityChart');
-    if (!ctx) return;
+    if (!ctx) {
+        console.error('Canvas element not found');
+        return;
+    }
 
-    // Prepare data for the chart
+    console.log('Creating chart with readings:', readings);
+
     const labels = readings.map(reading => {
         const date = new Date(reading.timestamp);
         return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
@@ -21,8 +88,11 @@ function createDensityChart(readings) {
     const densityData = readings.map(reading => reading.density).reverse();
     const impedanceData = readings.map(reading => reading.acousticImpedance).reverse();
 
-    // Create the chart
-    new Chart(ctx, {
+    console.log('Chart labels:', labels);
+    console.log('Density data:', densityData);
+    console.log('Impedance data:', impedanceData);
+
+    const chartInstance = new Chart(ctx, {
         type: 'line',
         data: {
             labels: labels,
@@ -30,28 +100,52 @@ function createDensityChart(readings) {
                 {
                     label: 'Bone Density (g/cm²)',
                     data: densityData,
-                    borderColor: '#667eea',
-                    backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                    borderColor: '#0077b6',
+                    backgroundColor: 'rgba(0, 119, 182, 0.1)',
                     borderWidth: 3,
                     tension: 0.4,
                     fill: true,
-                    yAxisID: 'y'
+                    yAxisID: 'y',
+                    pointRadius: 6,
+                    pointHoverRadius: 8,
+                    pointBackgroundColor: '#0077b6',
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2,
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: '#0077b6',
+                    pointHoverBorderWidth: 3
                 },
                 {
                     label: 'Acoustic Impedance (MRayl)',
                     data: impedanceData,
-                    borderColor: '#764ba2',
-                    backgroundColor: 'rgba(118, 75, 162, 0.1)',
+                    borderColor: '#48cae4',
+                    backgroundColor: 'rgba(72, 202, 228, 0.1)',
                     borderWidth: 3,
                     tension: 0.4,
                     fill: true,
-                    yAxisID: 'y1'
+                    yAxisID: 'y1',
+                    pointRadius: 6,
+                    pointHoverRadius: 8,
+                    pointBackgroundColor: '#48cae4',
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2,
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: '#48cae4',
+                    pointHoverBorderWidth: 3
                 }
             ]
         },
         options: {
             responsive: true,
             maintainAspectRatio: true,
+            animation: {
+                duration: 2000,
+                easing: 'easeInOutQuart',
+                onComplete: () => {
+                    console.log('Chart animation complete');
+                    addChartSparkle(ctx);
+                }
+            },
             interaction: {
                 mode: 'index',
                 intersect: false,
@@ -60,11 +154,25 @@ function createDensityChart(readings) {
                 legend: {
                     display: true,
                     position: 'top',
-                },
-                title: {
-                    display: false
+                    labels: {
+                        usePointStyle: true,
+                        padding: 15,
+                        font: {
+                            size: 13,
+                            weight: 'bold'
+                        }
+                    }
                 },
                 tooltip: {
+                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                    padding: 12,
+                    titleFont: {
+                        size: 14,
+                        weight: 'bold'
+                    },
+                    bodyFont: {
+                        size: 13
+                    },
                     callbacks: {
                         label: function(context) {
                             let label = context.dataset.label || '';
@@ -86,7 +194,11 @@ function createDensityChart(readings) {
                     position: 'left',
                     title: {
                         display: true,
-                        text: 'Bone Density (g/cm²)'
+                        text: 'Bone Density (g/cm²)',
+                        font: {
+                            size: 14,
+                            weight: 'bold'
+                        }
                     },
                     grid: {
                         color: 'rgba(0, 0, 0, 0.05)'
@@ -103,7 +215,11 @@ function createDensityChart(readings) {
                     position: 'right',
                     title: {
                         display: true,
-                        text: 'Acoustic Impedance (MRayl)'
+                        text: 'Acoustic Impedance (MRayl)',
+                        font: {
+                            size: 14,
+                            weight: 'bold'
+                        }
                     },
                     grid: {
                         drawOnChartArea: false,
@@ -117,16 +233,76 @@ function createDensityChart(readings) {
                 x: {
                     grid: {
                         color: 'rgba(0, 0, 0, 0.05)'
+                    },
+                    ticks: {
+                        font: {
+                            size: 12
+                        }
                     }
                 }
             }
         }
     });
+
+    console.log('Chart created successfully:', chartInstance);
 }
+
+// Add sparkle effect to chart
+function addChartSparkle(canvas) {
+    const sparkles = document.createElement('div');
+    sparkles.className = 'chart-sparkles';
+    sparkles.style.position = 'absolute';
+    sparkles.style.top = '0';
+    sparkles.style.left = '0';
+    sparkles.style.width = '100%';
+    sparkles.style.height = '100%';
+    sparkles.style.pointerEvents = 'none';
+
+    canvas.parentElement.style.position = 'relative';
+    canvas.parentElement.appendChild(sparkles);
+
+    for (let i = 0; i < 10; i++) {
+        setTimeout(() => {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            sparkle.style.position = 'absolute';
+            sparkle.style.width = '4px';
+            sparkle.style.height = '4px';
+            sparkle.style.background = '#0077b6';
+            sparkle.style.borderRadius = '50%';
+            sparkle.style.left = Math.random() * 100 + '%';
+            sparkle.style.top = Math.random() * 100 + '%';
+            sparkle.style.animation = 'sparkleAnimation 1s ease-out forwards';
+
+            sparkles.appendChild(sparkle);
+
+            setTimeout(() => sparkle.remove(), 1000);
+        }, i * 100);
+    }
+}
+
+// Add sparkle animation to CSS dynamically
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes sparkleAnimation {
+        0% {
+            transform: scale(0);
+            opacity: 1;
+        }
+        100% {
+            transform: scale(3);
+            opacity: 0;
+        }
+    }
+    
+    .dashboard-card {
+        transition: transform 0.3s ease;
+    }
+`;
+document.head.appendChild(style);
 
 // Function to update dashboard with new reading
 function updateDashboard(newReading) {
-    // Update current reading display
     const valueNumber = document.querySelector('.value-number');
     const statusText = document.querySelector('.status-text');
     const statusIndicator = document.querySelector('.status-indicator');
@@ -134,7 +310,7 @@ function updateDashboard(newReading) {
     const readingTime = document.querySelector('.reading-time span');
 
     if (valueNumber) {
-        valueNumber.textContent = newReading.density.toFixed(2);
+        animateValue(valueNumber, parseFloat(valueNumber.textContent), newReading.density, 1000);
     }
 
     if (statusText) {
@@ -142,14 +318,12 @@ function updateDashboard(newReading) {
     }
 
     if (statusIndicator) {
-        // Remove old status classes
         statusIndicator.classList.remove('healthy', 'warning', 'concerning');
-        // Add new status class
         statusIndicator.classList.add(newReading.healthStatus.toLowerCase());
     }
 
     if (metricValue) {
-        metricValue.textContent = newReading.acousticImpedance.toFixed(1);
+        animateValue(metricValue, parseFloat(metricValue.textContent), newReading.acousticImpedance, 1000);
     }
 
     if (readingTime) {
@@ -163,16 +337,33 @@ function updateDashboard(newReading) {
         });
     }
 
-    // Add new row to table
     addTableRow(newReading);
 }
 
-// Function to add a new row to the readings table
+// Animate value changes
+function animateValue(element, start, end, duration) {
+    const range = end - start;
+    const increment = range / (duration / 16);
+    let current = start;
+
+    const timer = setInterval(() => {
+        current += increment;
+        if ((increment > 0 && current >= end) || (increment < 0 && current <= end)) {
+            element.textContent = end.toFixed(2);
+            clearInterval(timer);
+        } else {
+            element.textContent = current.toFixed(2);
+        }
+    }, 16);
+}
+
+// Add new row to table with animation
 function addTableRow(reading) {
     const tbody = document.querySelector('.readings-table tbody');
     if (!tbody) return;
 
     const row = document.createElement('tr');
+    row.className = 'table-row-animate';
     const date = new Date(reading.timestamp);
     const formattedDate = date.toLocaleString('en-US', {
         month: 'short',
@@ -193,77 +384,14 @@ function addTableRow(reading) {
         </td>
     `;
 
-    // Insert at the beginning of the table
     tbody.insertBefore(row, tbody.firstChild);
 
-    // Remove last row if more than 10 rows
     if (tbody.children.length > 10) {
         tbody.removeChild(tbody.lastChild);
     }
 }
 
-// Function to set up real-time updates (for future ESP32 integration)
-function setupRealtimeUpdates() {
-    // This would connect to your ESP32 device via WebSocket or polling
-    // For now, it's a placeholder for future implementation
-
-    // Example WebSocket connection (commented out):
-    /*
-    const ws = new WebSocket('ws://your-esp32-ip:port');
-
-    ws.onmessage = function(event) {
-        const data = JSON.parse(event.data);
-        const newReading = {
-            userId: data.userId,
-            density: data.density,
-            acousticImpedance: data.acousticImpedance,
-            healthStatus: determineHealthStatus(data.density),
-            timestamp: new Date().toISOString()
-        };
-        updateDashboard(newReading);
-    };
-    */
-}
-
-// Helper function to determine health status from density
-function determineHealthStatus(density) {
-    if (density >= 1.0) {
-        return 'Healthy';
-    } else if (density >= 0.8) {
-        return 'Warning';
-    } else {
-        return 'Concerning';
-    }
-}
-
-// Function to export data as CSV
-function exportDataAsCSV() {
-    const table = document.querySelector('.readings-table');
-    if (!table) return;
-
-    let csv = [];
-    const rows = table.querySelectorAll('tr');
-
-    rows.forEach(row => {
-        const cols = row.querySelectorAll('td, th');
-        const csvRow = [];
-        cols.forEach(col => {
-            csvRow.push(col.textContent.trim());
-        });
-        csv.push(csvRow.join(','));
-    });
-
-    const csvContent = csv.join('\n');
-    const blob = new Blob([csvContent], { type: 'text/csv' });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'bone-density-readings.csv';
-    a.click();
-    window.URL.revokeObjectURL(url);
-}
-
-// Add smooth scrolling for any anchor links
+// Smooth scrolling for anchor links
 document.addEventListener('DOMContentLoaded', function() {
     const links = document.querySelectorAll('a[href^="#"]');
     links.forEach(link => {
@@ -271,7 +399,7 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             const target = document.querySelector(this.getAttribute('href'));
             if (target) {
-                target.scrollIntoView({ behavior: 'smooth' });
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         });
     });

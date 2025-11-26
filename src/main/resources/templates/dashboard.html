@@ -23,18 +23,18 @@
 </nav>
 
 <div class="dashboard-container">
-    <div class="dashboard-header">
+    <div class="dashboard-header animate-fade-in">
         <h1>Bone Health Dashboard</h1>
         <p class="user-id">User: <span th:text="${userId}">user001</span></p>
     </div>
 
     <div class="dashboard-grid">
         <!-- Current Reading Card -->
-        <div class="dashboard-card current-reading">
-            <h2>Current Reading</h2>
+        <div class="dashboard-card current-reading animate-slide-up" style="animation-delay: 0.1s;">
+            <h2>📊 Current Reading</h2>
             <div class="reading-display">
                 <div class="reading-value">
-                    <span class="value-number" th:text="${#numbers.formatDecimal(latestReading.density, 1, 2)}">1.15</span>
+                    <span class="value-number counter-animation" th:attr="data-target=${latestReading.density}" th:text="${#numbers.formatDecimal(latestReading.density, 1, 2)}">1.15</span>
                     <span class="value-unit">g/cm²</span>
                 </div>
                 <div class="status-indicator" th:classappend="${latestReading.healthStatus.toLowerCase()}">
@@ -48,47 +48,79 @@
         </div>
 
         <!-- Acoustic Impedance Card -->
-        <div class="dashboard-card">
-            <h2>Acoustic Impedance</h2>
+        <div class="dashboard-card animate-slide-up" style="animation-delay: 0.2s;">
+            <h2>🔊 Acoustic Impedance</h2>
             <div class="metric-display">
-                <span class="metric-value" th:text="${#numbers.formatDecimal(latestReading.acousticImpedance, 1, 1)}">3.2</span>
+                <span class="metric-value counter-animation" th:attr="data-target=${latestReading.acousticImpedance}" th:text="${#numbers.formatDecimal(latestReading.acousticImpedance, 1, 1)}">3.2</span>
                 <span class="metric-unit">MRayl</span>
             </div>
             <p class="metric-description">Measures bone material properties</p>
+
+            <!-- New Acoustic Wave Animation -->
+            <div class="acoustic-wave">
+                <div class="wave wave1"></div>
+                <div class="wave wave2"></div>
+                <div class="wave wave3"></div>
+            </div>
         </div>
 
         <!-- Health Status Card -->
-        <div class="dashboard-card health-status">
-            <h2>Health Status Guide</h2>
+        <div class="dashboard-card health-status animate-slide-up" style="animation-delay: 0.3s;">
+            <h2>💊 Health Status Guide</h2>
             <div class="status-guide">
                 <div class="status-item">
-                    <span class="guide-dot healthy"></span>
+                    <span class="guide-dot healthy pulse-animation"></span>
                     <div>
                         <strong>Healthy</strong>
                         <p>BMD ≥ 1.0 g/cm²</p>
                     </div>
                 </div>
                 <div class="status-item">
-                    <span class="guide-dot warning"></span>
+                    <span class="guide-dot warning pulse-animation"></span>
                     <div>
                         <strong>Warning</strong>
                         <p>BMD 0.8 - 1.0 g/cm²</p>
                     </div>
                 </div>
                 <div class="status-item">
-                    <span class="guide-dot concerning"></span>
+                    <span class="guide-dot concerning pulse-animation"></span>
                     <div>
                         <strong>Concerning</strong>
                         <p>BMD < 0.8 g/cm²</p>
                     </div>
                 </div>
             </div>
+
+            <!-- New Health Tips -->
+            <div class="health-tip floating-animation">
+                <p><strong>💡 Tip:</strong> Regular monitoring helps detect changes early!</p>
+            </div>
+        </div>
+
+        <!-- Bone Health Score Card (replaces progress ring) -->
+        <div class="dashboard-card bone-score-card animate-slide-up" style="animation-delay: 0.35s;">
+            <h2>🎯 Bone Health Score</h2>
+            <p class="score-description">Overall bone density relative to optimal health</p>
+
+            <!-- Progress Ring -->
+            <div class="progress-ring-container">
+                <svg class="progress-ring" width="140" height="140">
+                    <circle class="progress-ring-circle" stroke="#e9ecef" stroke-width="10" fill="transparent" r="60" cx="70" cy="70"/>
+                    <circle class="progress-ring-circle progress-ring-fill" stroke="#0077b6" stroke-width="10" fill="transparent" r="60" cx="70" cy="70"
+                            th:attr="data-percentage=${(latestReading.density / 1.5) * 100}"/>
+                </svg>
+                <div class="progress-text">
+                    <span class="progress-value counter-animation" th:attr="data-target=${(latestReading.density / 1.5) * 100}">77</span>
+                    <span class="progress-label">%</span>
+                </div>
+            </div>
+            <p class="score-info">Based on optimal BMD of 1.5 g/cm²</p>
         </div>
     </div>
 
     <!-- Recent Readings Table -->
-    <div class="dashboard-card recent-readings">
-        <h2>Recent Readings</h2>
+    <div class="dashboard-card recent-readings animate-fade-in" style="animation-delay: 0.4s;">
+        <h2>📋 Recent Readings</h2>
         <div class="table-container">
             <table class="readings-table">
                 <thead>
@@ -100,14 +132,14 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="reading : ${readings}">
+                <tr th:each="reading, iterStat : ${readings}" class="table-row-animate" th:style="'animation-delay: ' + ${0.5 + iterStat.index * 0.1} + 's'">
                     <td th:text="${#temporals.format(reading.timestamp, 'MMM dd, yyyy HH:mm')}">Nov 24, 2025 14:30</td>
                     <td th:text="${#numbers.formatDecimal(reading.density, 1, 2)}">1.15</td>
                     <td th:text="${#numbers.formatDecimal(reading.acousticImpedance, 1, 1)}">3.2</td>
                     <td>
-                                <span class="table-status" th:classappend="${reading.healthStatus.toLowerCase()}" th:text="${reading.healthStatus}">
-                                    Healthy
-                                </span>
+                        <span class="table-status" th:classappend="${reading.healthStatus.toLowerCase()}" th:text="${reading.healthStatus}">
+                            Healthy
+                        </span>
                     </td>
                 </tr>
                 </tbody>
@@ -116,30 +148,32 @@
     </div>
 
     <!-- Chart -->
-    <div class="dashboard-card chart-card">
-        <h2>Bone Density Trend</h2>
+    <div class="dashboard-card chart-card animate-scale-up" style="animation-delay: 0.6s;">
+        <h2>📈 Bone Density Trend</h2>
         <canvas id="densityChart"></canvas>
     </div>
 
     <!-- Device Info -->
-    <div class="dashboard-card device-info">
-        <h2>Device Information</h2>
+    <div class="dashboard-card device-info animate-fade-in" style="animation-delay: 0.7s;">
+        <h2>⚙️ Device Information</h2>
         <div class="info-grid">
-            <div class="info-item">
+            <div class="info-item hover-lift">
                 <span class="info-label">Device:</span>
                 <span class="info-value">ESP32 S3 DevKitC</span>
             </div>
-            <div class="info-item">
+            <div class="info-item hover-lift">
                 <span class="info-label">Sensor:</span>
                 <span class="info-value">Piezoelectric Film</span>
             </div>
-            <div class="info-item">
+            <div class="info-item hover-lift">
                 <span class="info-label">Vibration Motor:</span>
                 <span class="info-value">DC 3V 12000rpm</span>
             </div>
-            <div class="info-item">
+            <div class="info-item hover-lift">
                 <span class="info-label">Connection:</span>
-                <span class="info-value">Bluetooth/WiFi</span>
+                <span class="info-value">
+                    <span class="connection-indicator">●</span> Bluetooth/WiFi
+                </span>
             </div>
         </div>
     </div>
@@ -153,9 +187,250 @@
     </div>
 </footer>
 
-<script th:src="@{/js/dashboard.js}"></script>
 <script th:inline="javascript">
     /*<![CDATA[*/
+    // Enhanced Dashboard JavaScript - Inline Version
+
+    function initDashboard(readings) {
+        console.log('Initializing dashboard with readings:', readings);
+
+        // Initialize counter animations
+        initCounterAnimations();
+
+        // Initialize progress ring
+        initProgressRing();
+
+        // Initialize the chart with the readings data
+        if (readings && readings.length > 0) {
+            createDensityChart(readings);
+        } else {
+            console.error('No readings data available for chart');
+        }
+    }
+
+    // Counter Animation for Numbers
+    function initCounterAnimations() {
+        const counters = document.querySelectorAll('.counter-animation');
+
+        counters.forEach(counter => {
+            const target = parseFloat(counter.getAttribute('data-target'));
+            const duration = 2000;
+            const increment = target / (duration / 16);
+            let current = 0;
+
+            const updateCounter = () => {
+                current += increment;
+                if (current < target) {
+                    counter.textContent = current.toFixed(2);
+                    requestAnimationFrame(updateCounter);
+                } else {
+                    counter.textContent = target.toFixed(2);
+                }
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        updateCounter();
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            observer.observe(counter);
+        });
+    }
+
+    // Progress Ring Animation
+    function initProgressRing() {
+        const progressRing = document.querySelector('.progress-ring-fill');
+        if (!progressRing) return;
+
+        const percentage = parseFloat(progressRing.getAttribute('data-percentage'));
+        const radius = 60;
+        const circumference = 2 * Math.PI * radius;
+        const offset = circumference - (percentage / 100) * circumference;
+
+        progressRing.style.setProperty('--progress', percentage);
+
+        setTimeout(() => {
+            progressRing.style.strokeDashoffset = offset;
+        }, 500);
+    }
+
+    // Create Density Chart with Enhanced Animations
+    function createDensityChart(readings) {
+        const ctx = document.getElementById('densityChart');
+        if (!ctx) {
+            console.error('Canvas element not found');
+            return;
+        }
+
+        console.log('Creating chart with readings:', readings);
+
+        const labels = readings.map(reading => {
+            const date = new Date(reading.timestamp);
+            return date.toLocaleDateString('en-US', {month: 'short', day: 'numeric'});
+        }).reverse();
+
+        const densityData = readings.map(reading => reading.density).reverse();
+        const impedanceData = readings.map(reading => reading.acousticImpedance).reverse();
+
+        console.log('Chart labels:', labels);
+        console.log('Density data:', densityData);
+        console.log('Impedance data:', impedanceData);
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: 'Bone Density (g/cm²)',
+                        data: densityData,
+                        borderColor: '#0077b6',
+                        backgroundColor: 'rgba(0, 119, 182, 0.1)',
+                        borderWidth: 3,
+                        tension: 0.4,
+                        fill: true,
+                        yAxisID: 'y',
+                        pointRadius: 6,
+                        pointHoverRadius: 8,
+                        pointBackgroundColor: '#0077b6',
+                        pointBorderColor: '#fff',
+                        pointBorderWidth: 2,
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: '#0077b6',
+                        pointHoverBorderWidth: 3
+                    },
+                    {
+                        label: 'Acoustic Impedance (MRayl)',
+                        data: impedanceData,
+                        borderColor: '#48cae4',
+                        backgroundColor: 'rgba(72, 202, 228, 0.1)',
+                        borderWidth: 3,
+                        tension: 0.4,
+                        fill: true,
+                        yAxisID: 'y1',
+                        pointRadius: 6,
+                        pointHoverRadius: 8,
+                        pointBackgroundColor: '#48cae4',
+                        pointBorderColor: '#fff',
+                        pointBorderWidth: 2,
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: '#48cae4',
+                        pointHoverBorderWidth: 3
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                animation: {
+                    duration: 2000,
+                    easing: 'easeInOutQuart'
+                },
+                interaction: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top',
+                        labels: {
+                            usePointStyle: true,
+                            padding: 15,
+                            font: {
+                                size: 13,
+                                weight: 'bold'
+                            }
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        padding: 12,
+                        titleFont: {
+                            size: 14,
+                            weight: 'bold'
+                        },
+                        bodyFont: {
+                            size: 13
+                        },
+                        callbacks: {
+                            label: function (context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed.y !== null) {
+                                    label += context.parsed.y.toFixed(2);
+                                }
+                                return label;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
+                        title: {
+                            display: true,
+                            text: 'Bone Density (g/cm²)',
+                            font: {
+                                size: 14,
+                                weight: 'bold'
+                            }
+                        },
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.05)'
+                        },
+                        ticks: {
+                            callback: function (value) {
+                                return value.toFixed(2);
+                            }
+                        }
+                    },
+                    y1: {
+                        type: 'linear',
+                        display: true,
+                        position: 'right',
+                        title: {
+                            display: true,
+                            text: 'Acoustic Impedance (MRayl)',
+                            font: {
+                                size: 14,
+                                weight: 'bold'
+                            }
+                        },
+                        grid: {
+                            drawOnChartArea: false,
+                        },
+                        ticks: {
+                            callback: function (value) {
+                                return value.toFixed(1);
+                            }
+                        }
+                    },
+                    x: {
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.05)'
+                        },
+                        ticks: {
+                            font: {
+                                size: 12
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        console.log('Chart created successfully');
+    }
+    // Initialize dashboard with readings data
     const readings = /*[[${readings}]]*/ [];
     initDashboard(readings);
     /*]]>*/
