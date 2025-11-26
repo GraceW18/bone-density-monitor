@@ -1254,11 +1254,11 @@ p {
 
     @keyframes pulseGlow {
         0%, 100% {
-            box-shadow: 0 0 5px currentColor;
+            box-shadow: 0 0 2px currentColor;
             transform: scale(1);
         }
         50% {
-            box-shadow: 0 0 20px currentColor;
+            box-shadow: 0 0 5px currentColor;
             transform: scale(1.1);
         }
     }
@@ -1268,18 +1268,7 @@ p {
             transform: translateY(0px);
         }
         50% {
-            transform: translateY(-10px);
-        }
-    }
-
-    @keyframes waveAnimation {
-        0% {
-            transform: scale(0.8);
-            opacity: 1;
-        }
-        100% {
-            transform: scale(2);
-            opacity: 0;
+            transform: translateY(-1px);
         }
     }
 
@@ -1401,38 +1390,6 @@ p {
     .progress-label {
         font-size: 1rem;
         color: var(--neutral-700);
-    }
-
-    /* Acoustic Wave Animation */
-    .acoustic-wave {
-        position: relative;
-        width: 60px;
-        height: 60px;
-        margin: 1.5rem auto;
-    }
-
-    .wave {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        border: 2px solid var(--primary-color);
-        transform: translate(-50%, -50%);
-        animation: waveAnimation 2s ease-out infinite;
-    }
-
-    .wave1 {
-        animation-delay: 0s;
-    }
-
-    .wave2 {
-        animation-delay: 0.5s;
-    }
-
-    .wave3 {
-        animation-delay: 1s;
     }
 
     /* Health Tip Box */
