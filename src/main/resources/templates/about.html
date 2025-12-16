@@ -23,156 +23,198 @@
 
 <div class="about-hero">
     <div class="container">
-        <h1>About Our Technology</h1>
-        <p class="lead">Revolutionizing bone health monitoring through acoustic technology</p>
+        <h1 class="animate-fade-in">About Our Technology</h1>
+        <p class="lead animate-fade-in">Revolutionizing bone health monitoring through acoustic technology</p>
     </div>
 </div>
 
-<section class="about-section">
+<section class="about-content">
     <div class="container">
-        <div class="content-block">
-            <h2>The Problem</h2>
-            <p>Traditional bone densitometers are bulky and impractical for space missions where every kilogram matters. Additionally, aging populations need accessible, affordable bone health monitoring to prevent osteoporosis-related fractures.</p>
-            <p>Current bone health assessment methods rely on expensive, stationary equipment like DEXA scanners that are unavailable in remote locations, space missions, or for routine home monitoring.</p>
+
+        <!-- Problem & Solution -->
+        <div class="two-column-section animate-slide-up" style="animation-delay: 0.1s;">
+            <div class="column-content">
+                <div class="section-label">The Problem</div>
+                <h2>Why Traditional Methods Fall Short</h2>
+                <p>Traditional bone densitometers are bulky and impractical for space missions where every kilogram matters. Aging populations need accessible, affordable bone health monitoring to prevent osteoporosis-related fractures.</p>
+                <div class="highlight-box">
+                    <p><strong>Current limitations:</strong></p>
+                    <ul>
+                        <li>Expensive, stationary equipment</li>
+                        <li>Unavailable in remote locations</li>
+                        <li>Not suitable for routine home monitoring</li>
+                        <li>Too heavy for space missions</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="column-content">
+                <div class="section-label">Our Solution</div>
+                <h2>Lightweight, Wearable Innovation</h2>
+                <p>We've developed a lightweight, wearable device that uses acoustic technology to assess bone health non-invasively.</p>
+                <div class="tech-specs">
+                    <div class="tech-item">
+                        <span class="tech-icon">⚙️</span>
+                        <div>
+                            <strong>Vibration Motors</strong>
+                            <p>Generate controlled vibrations (DC 3V, 12000rpm)</p>
+                        </div>
+                    </div>
+                    <div class="tech-item">
+                        <span class="tech-icon">📡</span>
+                        <div>
+                            <strong>Piezoelectric Sensors</strong>
+                            <p>Detect acoustic responses with high sensitivity</p>
+                        </div>
+                    </div>
+                    <div class="tech-item">
+                        <span class="tech-icon">💻</span>
+                        <div>
+                            <strong>ESP32 S3 DevKitC</strong>
+                            <p>Process data in real-time with wireless connectivity</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="content-block">
-            <h2>Our Solution</h2>
-            <p>We've developed a lightweight, wearable device that uses acoustic technology to assess bone health. Our system employs:</p>
-            <ul class="feature-list">
-                <li><strong>Vibration Motors:</strong> Generate controlled vibrations (DC 3V, 12000rpm) in bone tissue to stimulate acoustic responses</li>
-                <li><strong>Piezoelectric Film Sensors:</strong> Detect acoustic responses with high sensitivity, measuring damping factors and impedance</li>
-                <li><strong>ESP32 S3 DevKitC:</strong> Process data in real-time and provide wireless connectivity via Bluetooth/Wi-Fi</li>
-                <li><strong>LCD Display:</strong> Show real-time feedback to users with intuitive health status indicators</li>
-            </ul>
-        </div>
-
-        <div class="content-block">
-            <h2>How It Works</h2>
-            <div class="process-steps">
-                <div class="step">
+        <!-- How It Works -->
+        <div class="process-section animate-fade-in" style="animation-delay: 0.2s;">
+            <h2 class="section-title">How It Works</h2>
+            <div class="process-grid">
+                <div class="process-step">
                     <div class="step-number">1</div>
-                    <div class="step-content">
-                        <h3>Vibration Generation</h3>
-                        <p>The device emits low-frequency acoustic waves (0.5-2 MHz) through the skin to the bone. Vibration motors create controlled mechanical oscillations that propagate through tissue.</p>
-                    </div>
+                    <div class="step-icon">🔊</div>
+                    <h3>Vibration Generation</h3>
+                    <p>The device emits low-frequency acoustic waves (0.5-2 MHz) through the skin to the bone. Vibration motors create controlled mechanical oscillations.</p>
                 </div>
-                <div class="step">
+                <div class="process-step">
                     <div class="step-number">2</div>
-                    <div class="step-content">
-                        <h3>Signal Detection</h3>
-                        <p>Piezoelectric sensors capture the acoustic response and measure damping factors. The sensor detects how the bone absorbs and reflects the acoustic energy.</p>
-                    </div>
+                    <div class="step-icon">📊</div>
+                    <h3>Signal Detection</h3>
+                    <p>Piezoelectric sensors capture the acoustic response and measure damping factors, detecting how bone absorbs and reflects energy.</p>
                 </div>
-                <div class="step">
+                <div class="process-step">
                     <div class="step-number">3</div>
-                    <div class="step-content">
-                        <h3>Data Analysis</h3>
-                        <p>The ESP32 computes acoustic impedance and compares it to healthy baseline ranges. Advanced algorithms filter out tissue interference and isolate bone-specific signals.</p>
-                    </div>
+                    <div class="step-icon">🧮</div>
+                    <h3>Data Analysis</h3>
+                    <p>The ESP32 computes acoustic impedance and compares it to healthy baseline ranges using advanced algorithms.</p>
                 </div>
-                <div class="step">
+                <div class="process-step">
                     <div class="step-number">4</div>
-                    <div class="step-content">
-                        <h3>Health Assessment</h3>
-                        <p>Results are displayed instantly on the LCD and synchronized to the web dashboard, alerting users to any concerning changes in bone density or quality.</p>
+                    <div class="step-icon">✅</div>
+                    <h3>Health Assessment</h3>
+                    <p>Results are displayed instantly on the LCD and synchronized to the web dashboard, alerting users to any concerning changes.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Benefits -->
+        <div class="benefits-section animate-slide-up" style="animation-delay: 0.3s;">
+            <h2 class="section-title">Key Benefits</h2>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">⚖️</div>
+                    <h3>Lightweight</h3>
+                    <p>Less than 100g - perfect for space missions</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🩺</div>
+                    <h3>Non-Invasive</h3>
+                    <p>No radiation exposure, safe for frequent monitoring</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">⚡</div>
+                    <h3>Real-Time</h3>
+                    <p>Instant feedback without lab analysis</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">💵</div>
+                    <h3>Cost-Effective</h3>
+                    <p>Affordable compared to traditional equipment</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">📱</div>
+                    <h3>Wireless</h3>
+                    <p>Data syncs automatically to cloud dashboard</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">👍</div>
+                    <h3>User-Friendly</h3>
+                    <p>Simple strap-on design, no expertise needed</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scientific Foundation -->
+        <div class="science-section animate-fade-in" style="animation-delay: 0.4s;">
+            <h2 class="section-title">Scientific Foundation</h2>
+            <div class="science-content">
+                <p class="intro-text">Our approach is based on peer-reviewed research showing that bone strength correlates with mineral content, modulus of elasticity, and natural frequency of bone vibration.</p>
+                <div class="science-grid">
+                    <div class="science-card">
+                        <h4>🔬 Research-Backed</h4>
+                        <p>Studies demonstrate acoustic sweep monitoring can equal or surpass mineral density measurements as a predictor of bone strength.</p>
+                    </div>
+                    <div class="science-card">
+                        <h4>🧬 Beyond Density</h4>
+                        <p>Measures material damping to provide insights into bone quality beyond simple density measurements.</p>
+                    </div>
+                    <div class="science-card">
+                        <h4>🎯 Multiple Assessments</h4>
+                        <p>Evaluates trabecular bone microarchitecture, detects early-stage osteoporotic changes, and monitors adaptation in microgravity.</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="content-block">
-            <h2>Scientific Foundation</h2>
-            <p>Our approach is based on peer-reviewed research showing that bone strength correlates with mineral content, modulus of elasticity, and natural frequency of bone vibration. Studies have demonstrated that acoustic sweep monitoring can be equal to or better than mineral density measurements as a predictor of bone strength.</p>
-            <p>The method measures material damping using excitation in the acoustic range, providing insights into bone quality beyond simple density measurements. This includes:</p>
-            <ul class="feature-list">
-                <li>Assessment of trabecular bone microarchitecture</li>
-                <li>Detection of early-stage osteoporotic changes</li>
-                <li>Monitoring of bone adaptation in microgravity environments</li>
-                <li>Non-invasive evaluation of bone mechanical competence</li>
-            </ul>
+        <!-- Technical Specifications -->
+        <div class="specs-section animate-slide-up" style="animation-delay: 0.5s;">
+            <h2 class="section-title">Technical Specifications</h2>
+            <div class="specs-grid">
+                <div class="spec-item">
+                    <span class="spec-label">Frequency Range</span>
+                    <span class="spec-value">0.5-2 MHz</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-label">Measurement Time</span>
+                    <span class="spec-value">< 30 seconds</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-label">Accuracy</span>
+                    <span class="spec-value">±5% BMD</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-label">Battery Life</span>
+                    <span class="spec-value">~8 hours</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-label">Weight</span>
+                    <span class="spec-value">< 100g</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-label">Connectivity</span>
+                    <span class="spec-value">Bluetooth 5.0, WiFi</span>
+                </div>
+            </div>
         </div>
 
-        <div class="content-block">
-            <h2>Applications</h2>
-            <div class="app-grid">
-                <div class="app-card">
-                    <h3>🚀 Space Exploration</h3>
-                    <p>Monitor bone adaptation in astronauts during long-term missions, enabling safer deep space travel. Critical for Mars missions and extended ISS stays where bone loss is accelerated by microgravity.</p>
+        <!-- Team Section -->
+        <div class="team-section animate-fade-in" style="animation-delay: 0.6s;">
+            <h2 class="section-title">The Team</h2>
+            <div class="team-card">
+                <div class="team-info">
+                    <p><strong>Team:</strong> ChocoChip Circuits</p>
+                    <p><strong>Institution:</strong> Georgia Tech</p>
+                    <p><strong>Event:</strong> MedTech Hack Hackathon 2025</p>
+                    <p><strong>Thread:</strong> Health Monitoring</p>
                 </div>
-                <div class="app-card">
-                    <h3>🏥 Osteoporosis Diagnosis</h3>
-                    <p>Early detection and continuous monitoring of osteoporosis, making bone health assessment accessible in clinical and home settings. Enables proactive intervention before fractures occur.</p>
-                </div>
-                <div class="app-card">
-                    <h3>👵 Elderly Care</h3>
-                    <p>Regular monitoring for aging populations to prevent fractures and maintain independence and quality of life. Particularly valuable for at-risk populations with limited healthcare access.</p>
+                <div class="team-mission">
+                    <h3>Our Mission</h3>
+                    <p>Making bone health monitoring accessible, lightweight, and practical for both space exploration and everyday healthcare.</p>
                 </div>
             </div>
         </div>
 
-        <div class="content-block">
-            <h2>Key Benefits</h2>
-            <ul class="feature-list">
-                <li><strong>Lightweight & Portable:</strong> Weighs less than 100g, perfect for space missions where every gram matters</li>
-                <li><strong>Non-Invasive:</strong> No radiation exposure, safe for frequent monitoring</li>
-                <li><strong>Real-Time Results:</strong> Instant feedback without waiting for lab analysis</li>
-                <li><strong>Cost-Effective:</strong> Affordable compared to traditional bone densitometry equipment</li>
-                <li><strong>Wireless Connectivity:</strong> Data automatically syncs to cloud dashboard for tracking trends</li>
-                <li><strong>User-Friendly:</strong> Simple strap-on design requires no technical expertise</li>
-            </ul>
-        </div>
-
-        <div class="content-block">
-            <h2>Future Improvements</h2>
-            <ul class="feature-list">
-                <li>Integration into spacesuits for continuous monitoring during spacewalks</li>
-                <li>Mobile app with personalized health profiles and trend tracking</li>
-                <li>Machine learning algorithms for predictive health analytics and fracture risk assessment</li>
-                <li>Multi-site measurements for comprehensive skeletal assessment (hip, spine, wrist)</li>
-                <li>Integration with electronic health records for clinical workflows</li>
-                <li>Telemedicine capabilities for remote consultation with healthcare providers</li>
-            </ul>
-        </div>
-
-        <div class="content-block team-section">
-            <h2>The Team</h2>
-            <p><strong>Team:</strong> ChocoChip Circuits</p>
-            <p><strong>Institution:</strong> Georgia Tech</p>
-            <p><strong>Event:</strong> MedTech Hack Hackathon 2025</p>
-            <p><strong>Thread:</strong> Health Monitoring</p>
-            <p><strong>Mission:</strong> Making bone health monitoring accessible, lightweight, and practical for both space exploration and everyday healthcare.</p>
-        </div>
-
-        <div class="content-block">
-            <h2>Technical Specifications</h2>
-            <div class="info-grid">
-                <div class="info-item">
-                    <span class="info-label">Frequency Range:</span>
-                    <span class="info-value">0.5-2 MHz</span>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">Measurement Time:</span>
-                    <span class="info-value">< 30 seconds</span>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">Accuracy:</span>
-                    <span class="info-value">±5% BMD</span>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">Battery Life:</span>
-                    <span class="info-value">~8 hours continuous</span>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">Weight:</span>
-                    <span class="info-value">< 100g</span>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">Connectivity:</span>
-                    <span class="info-value">Bluetooth 5.0, WiFi</span>
-                </div>
-            </div>
-        </div>
     </div>
 </section>
 
