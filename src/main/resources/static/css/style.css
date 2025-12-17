@@ -29,19 +29,24 @@
 *, *::before, *::after {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    box-sizing: border-box !important;
+}
+
+html, body {
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
 html {
     scroll-behavior: smooth;
-    font-size: 16px;
+    font-size: 16px !important;
 }
 
 body {
-    font-family: 'Segoe UI', 'Arial', 'Helvetica', sans-serif;
+    font-family: 'Segoe UI', 'Arial', 'Helvetica', sans-serif !important;
     line-height: 1.6;
-    color: var(--neutral-900);
-    background-color: var(--neutral-100);
+    color: var(--neutral-900) !important;
+    background-color: var(--neutral-100) !important;
     min-height: 100vh;
 }
 
@@ -65,12 +70,12 @@ p { margin-bottom: 1rem; color: var(--neutral-700); }
 
 /* ===== NAVIGATION ===== */
 .navbar {
-    background: white;
-    box-shadow: var(--shadow-md);
+    background: white !important;
+    box-shadow: var(--shadow-md) !important;
     position: sticky;
     top: 0;
     z-index: 1000;
-    border-bottom: 3px solid var(--primary-color);
+    border-bottom: 3px solid var(--primary-color) !important;
 }
 
 .nav-container {
@@ -476,9 +481,9 @@ p { margin-bottom: 1rem; color: var(--neutral-700); }
 
 /* Hero Section */
 .hero {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
-    color: white;
-    padding: clamp(4rem, 10vw, 8rem) var(--base-spacing);
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%) !important;
+    color: white !important;
+    padding: clamp(4rem, 10vw, 8rem) var(--base-spacing) !important;
     text-align: center;
     position: relative;
     overflow: hidden;
@@ -504,11 +509,11 @@ p { margin-bottom: 1rem; color: var(--neutral-700); }
 }
 
 .hero-title {
-    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-size: clamp(2.5rem, 6vw, 4rem) !important;
     margin-bottom: 1.5rem;
-    font-weight: 700;
+    font-weight: 700 !important;
     line-height: 1.1;
-    color: white;
+    color: white !important;
 }
 
 .hero-subtitle {
