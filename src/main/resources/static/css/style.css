@@ -268,7 +268,7 @@ p { margin-bottom: 1rem; color: var(--neutral-700); }
     animation: progressFill 2s ease forwards;
 }
 
-@keyframes progressFill { from { width: 0%; } }
+@keyframes progressFill { from { width: 0; } }
 
 /* ===== STATUS GUIDE ===== */
 .status-guide-compact {
