@@ -1,0 +1,11 @@
+[build]
+builder = "nixpacks"
+
+[build.nixpacksPlan]
+providers = ["java"]
+
+[build.nixpacksPlan.phases.build]
+cmds = ["mvn clean package -DskipTests"]
+
+[deploy]
+startCommand = "java -jar target/bone-density-monitor-*.jar"
