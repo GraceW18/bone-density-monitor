@@ -9,10 +9,11 @@
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:;">
 </head>
 <body>
+<script src="/js/icons.js"></script>
 <nav class="navbar">
     <div class="nav-container">
         <a href="/" class="nav-logo">
-            <span class="logo-icon">🦴</span>
+            <span class="logo-icon"></span>
             <span class="logo-text">BoneDensity</span>
         </a>
         <ul class="nav-menu">
@@ -33,7 +34,7 @@
     <div class="metrics-grid">
         <!-- Current Reading Card -->
         <div class="metric-card metric-primary animate-slide-up" style="animation-delay: 0.1s;">
-            <div class="metric-icon">📊</div>
+            <div class="metric-icon"></div>
             <div class="metric-content">
                 <p class="metric-label">Current Bone Density</p>
                 <h2 class="metric-value">
@@ -49,7 +50,7 @@
 
         <!-- Acoustic Impedance Card -->
         <div class="metric-card animate-slide-up" style="animation-delay: 0.2s;">
-            <div class="metric-icon">🔊</div>
+            <div class="metric-icon"></div>
             <div class="metric-content">
                 <p class="metric-label">Acoustic Impedance</p>
                 <h2 class="metric-value">
@@ -62,7 +63,7 @@
 
         <!-- Health Score Card -->
         <div class="metric-card animate-slide-up" style="animation-delay: 0.3s;">
-            <div class="metric-icon">🎯</div>
+            <div class="metric-icon"></div>
             <div class="metric-content">
                 <p class="metric-label">Bone Health Score</p>
                 <h2 class="metric-value">
@@ -77,7 +78,7 @@
 
         <!-- Health Status Guide Card -->
         <div class="metric-card animate-slide-up" style="animation-delay: 0.35s;">
-            <div class="metric-icon">💊</div>
+            <div class="metric-icon"></div>
             <div class="metric-content">
                 <p class="metric-label">Health Status Guide</p>
                 <div class="status-guide-compact">
@@ -100,13 +101,13 @@
 
     <!-- Chart Section -->
     <div class="dashboard-card chart-card animate-scale-up" style="animation-delay: 0.4s;">
-        <h2>📈 Bone Density Trend</h2>
+        <h2>Bone Density Trend</h2>
         <canvas id="densityChart"></canvas>
     </div>
 
     <!-- Recent Readings Table -->
     <div class="dashboard-card recent-readings animate-fade-in" style="animation-delay: 0.5s;">
-        <h2>📋 Recent Readings</h2>
+        <h2>Recent Readings</h2>
         <div class="table-container">
             <table class="readings-table">
                 <thead>
@@ -133,7 +134,7 @@
 
     <!-- Device Info -->
     <div class="dashboard-card device-info animate-fade-in" style="animation-delay: 0.7s;">
-        <h2>⚙️ Device Information</h2>
+        <h2>Device Information</h2>
         <div class="info-grid">
             <div class="info-item hover-lift">
                 <span class="info-label">Device:</span>

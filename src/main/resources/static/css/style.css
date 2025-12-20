@@ -248,9 +248,11 @@ p {
 }
 
 .metric-icon {
-    font-size: clamp(1.75rem, 3vw, 2rem);
-    margin-bottom: 0.75rem;
-    display: inline-block;
+    width: clamp(5rem, 5vw, 4rem);
+    height: clamp(5rem, 5vw, 4rem);
+    flex-shrink: 0;  /* Prevents shrinking */
+    position: relative;
+    overflow: hidden;
 }
 
 .metric-content {
@@ -750,12 +752,15 @@ p {
 }
 
 .app-benefits li:before {
-    content: "✓";
+    content: "+";
     position: absolute;
     left: 0;
     color: var(--success-color);
-    font-weight: bold;
-    font-size: 1.2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-weight: 700;
+    font-size: 1.5rem;
+    font-family: "Segoe UI", sans-serif;
 }
 
 /* CTA Section */
@@ -858,13 +863,17 @@ p {
 }
 
 .highlight-box li:before {
-    content: "✗";
+    content: "\00D7";           /* × (multiplication sign) */
     position: absolute;
     left: 0;
+    top: 50%;
+    transform: translateY(-55%);
     color: var(--danger-color);
-    font-weight: bold;
     font-size: 1.5rem;
+    font-weight: 600;
+    font-family: "Segoe UI", sans-serif;
 }
+
 
 .tech-specs {
     display: flex;
@@ -1042,7 +1051,7 @@ p {
 
 .science-card h4 {
     font-size: 1.2rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     color: var(--primary-color);
 }
 
@@ -1091,7 +1100,7 @@ p {
 }
 
 .team-card {
-    background: linear-gradient(135deg, var(--primary-light), var(--primary-color));
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
     padding: clamp(2rem, 4vw, 3rem);
     border-radius: var(--border-radius);
     color: white;
